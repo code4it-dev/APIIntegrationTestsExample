@@ -8,18 +8,18 @@ namespace APIIntegrationTestsExample.Controllers
     [ApiController]
     public class PokedexController : ControllerBase
     {
-        private readonly IPokemonService pokemonService;
+        private readonly IPokemonService _pokemonService;
 
         public PokedexController(IPokemonService pokemonService)
         {
-            this.pokemonService = pokemonService;
+            this._pokemonService = pokemonService;
         }
 
         [HttpGet]
         [Route("{pokemonName}")]
         public async Task<ActionResult<PokemonViewModel>> Get(string pokemonName)
         {
-            var fullInfo = await pokemonService.GetPokemonInfo(pokemonName);
+            var fullInfo = await _pokemonService.GetPokemonInfo(pokemonName);
             if (fullInfo != null)
             {
                 return new PokemonViewModel
@@ -33,5 +33,8 @@ namespace APIIntegrationTestsExample.Controllers
                 return NotFound();
         }
     }
+
+
+
 
 }
